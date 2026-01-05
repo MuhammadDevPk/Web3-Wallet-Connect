@@ -12,9 +12,7 @@ const config = createConfig(
     transports: {
       // RPC URL for each chain
       [mainnet.id]: http(
-        'https://lb.nodies.app/v1/8cd354ce-9e5c-4428-8051-9bc892e3cc5e',
-        // or
-        // `https://ethereum-public.nodies.app`,
+        `https://eth.llamarpc.com`, // Public RPC that supports CORS
       ),
     },
 
