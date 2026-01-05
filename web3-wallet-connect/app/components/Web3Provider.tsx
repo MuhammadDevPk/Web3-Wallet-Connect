@@ -1,4 +1,5 @@
 "use client"
+import { useState } from "react";
 import { WagmiProvider, createConfig, http } from "wagmi";
 import { mainnet, polygon, avalanche } from "wagmi/chains";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -18,8 +19,8 @@ const config = createConfig(
     },
 
     // Required API Keys
-    walletConnectProjectId: process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID || "",
-
+    // walletConnectProjectId: process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID as string,
+    walletConnectProjectId: "671e5596de142a2e1cae633c57c58aa2",
     // Required App Info
     appName: "Your App Name",
 
@@ -30,13 +31,16 @@ const config = createConfig(
   }),
 );
 
-const queryClient = new QueryClient();
-
 export const Web3Provider = ({ children }:{children: React.ReactNode}) => {
+  const [queryClient] = useState(() => new QueryClient());
+  
   return (
     <WagmiProvider config={config}>
       <QueryClientProvider client={queryClient}>
-        <ConnectKitProvider>{children}</ConnectKitProvider>
+        <ConnectKitProvider>
+          <ConnectKitButton />
+          {children}
+        </ConnectKitProvider>
       </QueryClientProvider>
     </WagmiProvider>
   );
